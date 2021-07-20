@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Parcel Sandbox</title>
+    <meta charset="UTF-8" />
+  </head>
+
+  <body>
+    <div id="app">
+      <h2>Github Repo Search</h2>
+      <div class="searchBox">
+        <input
+          class="searchInput"
+          id="repoSearchInput"
+          type="text"
+          name="search"
+          placeholder="Search Repo.."
+        />
+        <button id="btnSearch" class="btnSearch">Search</button>
+      </div>
+      <div class="filterBox">
+        <select class="filter" name="languages" id="languages">
+          <option value="">All</option>
+          <option value="TypeScript">TypeScript</option>
+          <option value="JavaScript">JavaScript</option>
+        </select>
+        <select class="filter" name="sorts" id="sorts">
+          <option value="">Sort</option>
+          <option value="updatedAt">UpdatedAt</option>
+          <option value="stars">Stars</option>
+        </select>
+      </div>
+      <div class="listBox">
+        <ul id="repoList" class="repoList"></ul>
+      </div>
+    </div>
+
+    <script src="src/index.js"></script>
+  </body>
+</html>
