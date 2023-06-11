@@ -40,7 +40,7 @@ function GithubSearch() {
     }
   ];
   var filteredRepos = [];
-  this.debounceOnChange = null;
+  var debounceOnChange = null;
   var searchInput;
   var selectedLanguage = "";
   var selectedSort = "";
@@ -52,11 +52,11 @@ function GithubSearch() {
     languageFilter.addEventListener("change", this.onLanguageChange);
     var sortFilter = document.getElementById("sorts");
     sortFilter.addEventListener("change", this.onSort);
-    this.debounceOnChange = debounce(this.fetchData, 400);
+    debounceOnChange = debounce(this.fetchData, 400);
     searchInput.addEventListener("change", this.onInputChange);
     filteredRepos = [...REPOS];
     this.showRepoList(filteredRepos);
-  };
+  }.bind(this);
 
   this.onSort = function (evt) {
     var value = evt.target.value;
@@ -88,7 +88,8 @@ function GithubSearch() {
 
   this.onInputChange = function (evt) {
     const value = evt.target.value;
-    this.debounceOnChange(value);
+    console.log(debounceOnChange);
+    debounceOnChange(value);
   };
 
   this.onClick = function (evt) {
@@ -97,7 +98,7 @@ function GithubSearch() {
     if (value) {
       this.fetchData(value);
     }
-  };
+  }.bind(this);
 
   this.fetchData = function (value) {
     console.log(value);
