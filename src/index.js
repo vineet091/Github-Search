@@ -19,24 +19,24 @@ function GithubSearch() {
       url: "https://abc.com",
       description: "tiny browser",
       language: "TypeScript",
-      stars: 20,
-      updatedAt: 1626772852523
+      stargazers_count: 20,
+      updated_at: 1626772852523
     },
     {
       name: "rollup-plugin",
       url: "https://abc.com",
       description: "tiny browser",
       language: "JavaScript",
-      stars: 50,
-      updatedAt: 1626772812523
+      stargazers_count: 50,
+      updated_at: 1626772812523
     },
     {
       name: "next-fullstack",
       url: "https://abc.com",
       description: "tiny browser",
       language: "JavaScript",
-      stars: 10,
-      updatedAt: 1626762812523
+      stargazers_count: 10,
+      updated_at: 1626762812523
     }
   ];
   var filteredRepos = [];
@@ -78,6 +78,7 @@ function GithubSearch() {
     selectedSort = value;
     if (!value) {
       filteredRepos = [...REPOS];
+      this.showRepoList(filteredRepos);
       return;
     }
     console.log(value);
@@ -105,9 +106,10 @@ function GithubSearch() {
     var url = API_PATH.replace("{userName}", value);
     console.log(url);
     fetch(url)
-      .then((response) => {
-        var data = response.json();
-        console.log(data);
+      .then(async (response) => {
+        console.log("data", response);
+        var data = await response.json();
+        console.log("data", data);
         REPOS = [...data];
         filteredRepos = [...data];
         this.showRepoList(filteredRepos);
@@ -118,7 +120,7 @@ function GithubSearch() {
   }.bind(this);
 
   this.showRepoList = function (repos) {
-    var repoList = document.getElementById("repoList");
+    var repoList = document.getElementById("repolist");
     repoList.innerHTML = "";
     repos.map((repo) => {
       var li = document.createElement("li");
@@ -149,11 +151,11 @@ function GithubSearch() {
       tagContainer.appendChild(starsIcon);
       var stars = document.createElement("span");
       stars.classList = "stars tag";
-      stars.innerHTML = repo.stars;
+      stars.innerHTML = repo.stargazers_count;
       tagContainer.appendChild(stars);
       var updatedAt = document.createElement("span");
       updatedAt.classList = "updatedAt tag";
-      updatedAt.innerHTML = this.getTime(repo.updatedAt);
+      updatedAt.innerHTML = this.getTime(repo.updated_at);
       tagContainer.appendChild(updatedAt);
       li.appendChild(tagContainer);
       repoList.appendChild(li);
